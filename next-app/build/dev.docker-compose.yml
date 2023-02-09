@@ -1,0 +1,17 @@
+version: '3.9'
+
+name: dev_starter-next
+
+services:
+  frontend-standalone:
+    platform: linux/x86_64
+    container_name: dev.standalone-starter-next
+    image: dev.standalone-starter-next-js
+    ports:
+      - 3000:3000
+    build:
+      context: ../
+      dockerfile: build/dev.Dockerfile
+    volumes:
+      - ../src:/app/src
+      - ../public:/app/public

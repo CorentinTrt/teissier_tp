@@ -1,0 +1,81 @@
+version: '3'
+
+name: dev_teissier_tp
+
+services:
+  strapi-cms:
+    container_name: dev.teissier_tp.strapi-cms
+    build:
+      context: ../strapi-cms/
+      dockerfile: build/dev.Dockerfile
+    image: strapi:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: strapiDB
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      APP_KEYS: ${APP_KEYS}
+      NODE_ENV: ${NODE_ENV}
+    volumes:
+      - ../strapi-cms/config:/opt/app/config
+      - ../strapi-cms/src:/opt/app/src
+      - ../strapi-cms/package.json:/opt/package.json
+      - ../strapi-cms/yarn.lock:/opt/yarn.lock
+      - ../strapi-cms/.env:/opt/app/.env
+      - ../strapi-cms/public/uploads:/opt/app/public/uploads
+    ports:
+      - '1337:1337'
+    networks:
+      - strapi
+    depends_on:
+      - strapi-db
+
+  strapi-db:
+    container_name: dev.teissier_tp.strapi-db
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    restart: unless-stopped
+    env_file: .env
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: ${DATABASE_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+    volumes:
+      - strapi-data:/var/lib/mysql
+      #- ./data:/var/lib/mysql # if you want to use a bind folder
+    ports:
+      - '3306:3306'
+    networks:
+      - strapi
+
+  next-app:
+    container_name: dev.teissier_tp.next-app
+    platform: linux/amd64
+    restart: unless-stopped
+    ports: 
+      - '3000:3000'
+    build:
+      context: ../next-app/
+      dockerfile: build/dev.Dockerfile
+    volumes:
+      - ../next-app/src:/app/src
+      - ../next-app/public:/app/public
+      
+
+
+volumes:
+  strapi-data:
+  next-app:
+
+networks:
+  strapi:
+    name: Strapi
+    driver: bridge

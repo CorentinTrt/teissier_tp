@@ -1,0 +1,14 @@
+version: '3.9'
+
+name: prod_starter-next
+
+services:
+  frontend-standalone:
+    platform: linux/x86_64
+    container_name: prod.standalone-starter-next
+    image: prod.standalone-starter-next-js
+    ports:
+      - 3000:3000
+    build:
+      context: ../
+      dockerfile: build/prod.Dockerfile
