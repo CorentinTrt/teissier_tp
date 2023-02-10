@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "strings",
+  "info": {
+    "singularName": "string",
+    "pluralName": "strings",
+    "displayName": "String"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "text",
+      "default": "The is a placeholder string",
+      "required": true
+    }
+  }
+}
