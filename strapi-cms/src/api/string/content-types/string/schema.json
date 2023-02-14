@@ -4,7 +4,8 @@
   "info": {
     "singularName": "string",
     "pluralName": "strings",
-    "displayName": "String"
+    "displayName": "String",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +20,11 @@
       "type": "text",
       "default": "The is a placeholder string",
       "required": true
+    },
+    "page": {
+      "type": "string",
+      "required": true,
+      "default": "home"
     }
   }
 }
