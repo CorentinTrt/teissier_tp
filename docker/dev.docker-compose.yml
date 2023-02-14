@@ -1,13 +1,13 @@
 version: '3'
 
-name: prod_teissier_tp
+name: dev_teissier_tp
 
 services:
   strapi-cms:
-    container_name: prod.teissier_tp.strapi-cms
+    container_name: dev.teissier_tp.strapi-cms
     build:
       context: ../strapi-cms/
-      dockerfile: build/prod.Dockerfile
+      dockerfile: docker/dev.Dockerfile
     image: strapi:latest
     restart: unless-stopped
     env_file: .env
@@ -37,7 +37,7 @@ services:
       - strapi-db
 
   strapi-db:
-    container_name: prod.teissier_tp.strapi-db
+    container_name: dev.teissier_tp.strapi-db
     platform: linux/amd64 #for platform error on Apple M1 chips
     restart: unless-stopped
     env_file: .env
@@ -56,17 +56,14 @@ services:
       - strapi
 
   next-app:
-    container_name: prod.teissier_tp.next-app
+    container_name: dev.teissier_tp.next-app
     platform: linux/amd64
     restart: unless-stopped
     ports: 
       - '3000:3000'
-      - '80:80'
-      - '8080:8080'
-      - '443:443'
     build:
       context: ../next-app/
-      dockerfile: build/prod.Dockerfile
+      dockerfile: docker/dev.Dockerfile
     volumes:
       - ../next-app/src:/app/src
       - ../next-app/public:/app/public
