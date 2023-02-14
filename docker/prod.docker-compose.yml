@@ -60,9 +60,7 @@ services:
     platform: linux/amd64
     restart: unless-stopped
     ports: 
-      - '3000:3000'
       - '80:80'
-      - '8080:8080'
       - '443:443'
     build:
       context: ../next-app/
