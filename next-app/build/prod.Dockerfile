@@ -1,5 +1,8 @@
 # Install dependencies only when needed
 FROM node:18-alpine AS deps
+
+RUN echo '|----- NEXT APP -----|'
+
 RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
@@ -37,8 +40,12 @@ COPY --from=builder --chown=nextuser:nextgroup /app/.next/static ./.next/static
 USER nextuser
 
 EXPOSE 3000
+EXPOSE 8080
+EXPOSE 80
+EXPOSE 443
 
 ENV PORT 3000
 
 CMD ["node", "server.js"]
 
+RUN echo '|----- NEXT APP - END -----|'
