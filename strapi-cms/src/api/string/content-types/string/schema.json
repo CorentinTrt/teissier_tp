@@ -12,19 +12,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "label": {
-      "type": "string",
-      "required": true
-    },
     "content": {
-      "type": "text",
-      "default": "The is a placeholder string",
-      "required": true
-    },
-    "page": {
-      "type": "string",
-      "required": true,
-      "default": "home"
+      "type": "json"
     }
   }
 }
