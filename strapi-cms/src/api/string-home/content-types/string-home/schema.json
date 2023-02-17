@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "strings_homes",
+  "info": {
+    "singularName": "string-home",
+    "pluralName": "strings-homes",
+    "displayName": "strings_home"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "json"
+    }
+  }
+}
